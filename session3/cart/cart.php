@@ -21,10 +21,37 @@ if (isset($_GET['action'])) {
 
         case 'plus':
             //tang don vi san pham len
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $id = $_GET['id'];
+                for ($i = 0; $i < count($cart); $i++) {
+                    if ($cart[$i]['id'] == $id) {
+                        //tang so luong san pham len
+                        $cart[$i]['quantity'] = $cart[$i]['quantity'] + 1;
+                        $_SESSION['cart'] = $cart;
+                        break;
+                    }
+                }
+            }
             break;
 
         case 'minus':
             //giam don vi san pham xuong
+            if (isset($_SESSION['cart'])) {
+                $id = $_GET['id'];
+                $cart = $_SESSION['cart'];
+                for ($i = 0; $i < count($cart); $i++) {
+                    if ($cart[$i]['id'] == $id) {
+                        //tang so luong san pham len
+                        $cart[$i]['quantity'] = $cart[$i]['quantity'] - 1;
+                        if ($cart[$i]['quantity'] <= 0) {
+                            array_splice($cart, $i, 1);
+                        }
+                        $_SESSION['cart'] = $cart;
+                        break;
+                    }
+                }
+            }
             break;
 
         case 'clear':
@@ -33,6 +60,19 @@ if (isset($_GET['action'])) {
             }
             break;
     }
+}
+
+
+if (isset($_SESSION['cart'])) {
+    $cart = $_SESSION['cart'];
+    $total = 0;
+    $subtotal = 0;
+    foreach ($cart as $key => $value) {
+        $subtotal += ($value['price'] * $value['quantity']);
+    }
+    $vat = 10;
+    $vat_total = $subtotal * 0.1;
+    $total = $subtotal + $vat_total;
 }
 ?>
 <!DOCTYPE html>
@@ -68,6 +108,13 @@ if (isset($_GET['action'])) {
     } //end for
 } //end if
 ?>
+    <?php if (isset($_SESSION['cart'])) { ?>
+    <div>Sub Total: <?php echo $subtotal; ?></div>
+    <div>10%</div>
+    <div>Total Price: <?php echo $total; ?></div>
+    <?php } ?>
+
+    <a href="checkout.php">Checkout</a>
 </body>
 
 </html>
