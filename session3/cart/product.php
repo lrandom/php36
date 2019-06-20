@@ -7,19 +7,35 @@ if (isset($_GET['id'])) {
     if (isset($_SESSION['cart'])) {
         //session cart da ton tai;
         $cart = $_SESSION['cart'];
-        array_push($cart, array(
-            'id' => $id,
-            'title' => $title,
-            'price' => $price
-        ));
-        $_SESSION['cart'] = $cart;
+        $flagFound = false;
+        for ($i = 0; $i < count($cart); $i++) {
+            if ($cart[$i]['id'] == $id) {
+                //tang so luong san pham len
+                $cart[$i]['quantity'] = $cart[$i]['quantity'] + 1;
+                $_SESSION['cart'] = $cart;
+                $flagFound = true;
+                break;
+            }
+        }
+
+        //neu nhu ko tim thay san pham trong gio hang
+        if ($flagFound == false) {
+            array_push($cart, array(
+                'id' => $id,
+                'title' => $title,
+                'price' => $price,
+                'quantity' => 1
+            ));
+            $_SESSION['cart'] = $cart;
+        }
     } else {
         //session cart chua ton tai;
         $_SESSION['cart'] = array(
             array(
                 'id' => $id,
                 'title' => $title,
-                'price' => $price
+                'price' => $price,
+                'quantity' => 1
             )
         );
     }
@@ -88,7 +104,7 @@ $products = array(
             <small><?php echo $value['price']; ?> usd</small>
             <button><a
                     href="
-                                                                ?id=<?php echo $value['id'] ?>&title=<?php echo $value['title'] ?>&price=<?php echo $value['price'] ?>">Add
+                                                                                                                                                                    ?id=<?php echo $value['id'] ?>&title=<?php echo $value['title'] ?>&price=<?php echo $value['price'] ?>">Add
                     to cart</a></button>
         </li>
         <?php
