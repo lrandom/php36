@@ -16,6 +16,16 @@ if (isset($_POST['username'])) {
             'phone' => '0868121289'
         );
         $_SESSION['user'] = $user;
+
+        if ($_POST['remember_me'] == 1) {
+            setcookie('username', $username, time() + 3600 * 24);
+            setcookie('password', $password, time() + 3600 * 24);
+        } else {
+            if (isset($_COOKIE['username'])) {
+                setcookie('username', '', time() - 3600 * 24);
+                setcookie('password', '', time() - 3600 * 24);
+            }
+        };
         header('Location: profile.php');
     } else {
         //khong match
@@ -53,16 +63,21 @@ if (isset($_POST['username'])) {
         <form method="POST">
             <div>
                 <label>Username</label>
-                <input type="text" name="username" />
+                <input type="text" name="username"
+                    value="<?php echo (isset($_COOKIE['username'])) ? $_COOKIE['username'] : '' ?>" />
             </div>
 
             <div>
                 <label>Password</label>
-                <input type="password" name="password" />
+                <input type="password" name="password"
+                    value="<?php echo (isset($_COOKIE['password'])) ? $_COOKIE['password'] : '' ?>" />
             </div>
 
             <div>
-                <input type="checkbox" name="remember_me" />Remember Me
+                <input type="checkbox" name="remember_me" value="1" <?php if (isset($_COOKIE['username'])) {
+                                                                        echo 'checked';
+                                                                    } ?> />
+                Remember Me
             </div>
 
             <div>
