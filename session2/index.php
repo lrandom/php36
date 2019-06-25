@@ -161,6 +161,7 @@
 
     array_push($mangmoi, 'd');
 
+    $GLOBALS['a'] = '10';
     ?>
 </body>
 
