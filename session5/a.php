@@ -28,6 +28,7 @@ if (isset($_FILES['image'])) {
         move_uploaded_file($_FILES['image']['tmp_name'], $dir_path . '/' . time() . '.' . $ext);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +42,7 @@ if (isset($_FILES['image'])) {
 
 <body>
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" />
+        <input type="file" name="image[]" multiple="multiple" />
         <input type="submit" value="Submit" />
     </form>
 </body>
