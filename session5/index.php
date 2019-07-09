@@ -35,7 +35,7 @@ $(document).ready(function() {
 </script>
 
 <body>
-    <form method="POST" action="handle_images.php" enctype="mutilpart/form-data">
+    <form method="POST" action="handle_images.php" enctype="multipart/form-data">
         <div class="wrapper-files">
         </div>
         <div class="btn-add">+</div>
