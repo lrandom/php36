@@ -23,6 +23,7 @@
                 ?>
                 <div class="box">
                     <div class="box-header with-border">
+                        <a href="add.php" class="btn btn-primary">Add</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -43,7 +44,10 @@
                                     <td><?php echo $r[Admin::COL_USERNAME]; ?></td>
                                     <td><?php echo $r[Admin::COL_EMAIL]; ?></td>
                                     <td><?php echo $r[Admin::COL_FULLNAME]; ?></td>
-                                    <td></td>
+                                    <td>
+                                        <a class="btn btn-danger">Xoá</a>
+                                        <a class="btn btn-primary">Sửa</a>
+                                    </td>
                                     <?php
                                         }
                                     } ?>
