@@ -1,7 +1,7 @@
 <?php
+
 require_once 'IDAL.php';
 require_once 'connection.php';
-
 class Admin implements IDAL
 {
     private $pdo;

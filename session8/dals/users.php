@@ -53,6 +53,6 @@ class Users implements IDAL
 
     public function delete($id)
     {
-        $this->pdo->exec('DELETE ' . TABLE_NAME . ' WHERE id=' . $id);
+        $this->pdo->exec('DELETE ' . self::TABLE_NAME . ' WHERE id=' . $id);
     }
 }
