@@ -9,7 +9,6 @@ if (isset($_POST['username'])) {
     $data = array($username, $password, $email, $fullname);
     $obj->insert($data);
 }
-
 ?>
 <!DOCTYPE html>
 <html>
